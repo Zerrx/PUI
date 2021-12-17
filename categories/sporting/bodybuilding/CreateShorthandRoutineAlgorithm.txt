@@ -1,0 +1,84 @@
+/* ****************************************
+	Order of events (Date/Time for file naming)
+	--------------------
+		1. Get the date/time from the system
+		2. Output the date to the user
+		3. Verify if the date is correct
+			3a. If the date is correct, inquire of begin time
+			3b. If the date is not correct, inquire of date
+				3b-. Inquire of begin time
+		4. While [end;] or [END;] command not given, request input for routines
+			4a. Request routine name and set count in the format:
+					Routine Name [SETCOUNT]
+			4b. Validate user input to match either:
+				[Format (integers): WEIGHT_LBS REPS [OPTIONAL: SETCOUNT]]
+				[Format (integers): WEIGHT_LBSxREPSx[OPTIONAL: SETCOUNT]]
+				[Format (integers): WEIGHT_LBSXREPSX[OPTIONAL: SETCOUNT]]
+				4b-1. 1) Integer only input: 60 12 3
+					  2) Integer only input: 60 12
+				4b-2. 1) X,x separator (may include spaces, delete whitespace): 60x12x3 :or: 60X12X3
+					  2) X,x separator (may include spaces, delete whitespace): 60x12   :or: 60X12
+				4b-.  1) If [SETCOUNT] not given, SETCOUNT = 1; either case 4b-1.2 or 4b-2.2 must be met, repeat until request filled
+					  2) If [SETCOUNT] given, SETCOUNT = n;
+							4b-.2. 1) If case 4b-1.2 or 4b-2.2, request input until [SETCOUNT] is fulfilled for "Routine Name", may match 4b-.2.2.A
+								   2) If case 4b-1.1 or 4b-2.1:
+										4b-.2.2. A) If the setcount given is less than [SETCOUNT], request input until [SETCOUNT] fulfilled
+											for "Routine Name", may match 4b-1.2 or 4b-2.2
+												 B) If the setcount given is greater than [SETCOUNT], set the count to either the remaining setcount
+											not fulfilled, or the [SETCOUNT], whichever is inactive
+												 C) If the setcount given is equal to [SETCOUNT], end input request for current routine and return to 4
+		5. Request end time
+		6. Output results into the following formats by sections
+			[SimpleView Format: Routine Name    \TABS\    WEIGHT_LBS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)]
+			[SimpleView Format: Routine Name    \TABS\    WEIGHT_KGS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)]
+			[LongView Format: Routine Name    \TABS\    WEIGHT_LBS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)]
+			[LongView Format: Routine Name    \TABS\    WEIGHT_KGS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)]
+			[ListColumnView Format: Routine Name    \TABS\    WEIGHT_LBS X REPS    Time-Length    \BREAK\    \TO_COLUMN\    WEIGHT_LBS X REPS    Time-Length (repeat until setcount reached)]
+			[ListColumnView Format: Routine Name    \TABS\    WEIGHT_KGS X REPS    Time-Length    \BREAK\    \TO_COLUMN\    WEIGHT_KGS X REPS    Time-Length (repeat until setcount reached)]
+			//[ListView Format: Routine Name    \BREAK\    WEIGHT_LBS X REPS    \BREAK\    WEIGHT_LBS X REPS (repeat until setcount reached)]
+			//[ListView Format: Routine Name    \BREAK\    WEIGHT_KGS X REPS    \BREAK\    WEIGHT_KGS X REPS (repeat until setcount reached)]
+			:::::TODO:::::::: Add visual aid here
+		7. Convert SimpleView format to separate CSV data with lbs and kgs included
+		8. Display output in selected view to user
+		TODO. (AT A LATER DATE:: Find the routine information by date the user wants to view and display that information to the user.)
+		TODO. (AT A LATER DATE:: Find the routine information by dates that the user wants to view and display that information to the user.)
+		TODO. (AT A LATER DATE:: Compile information into a specified format for use or visual purpose)
+**************************************** */
+
+
+	[SimpleView Format:
+		Routine Name    \BREAK\
+			WEIGHT_LBS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)
+			WEIGHT_LBS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)
+		Routine Name    \BREAK\
+			WEIGHT_LBS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)]
+	[SimpleView Format:
+		Routine Name    \BREAK\
+			WEIGHT_KGS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)
+			WEIGHT_KGS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)
+		Routine Name    \BREAK\
+			WEIGHT_KGS X REPS X SETCOUNT    Time-Length    Time-Length    (repeat until the end)]
+
+
+	[ListColumnView Format:
+		Routine Name    \BREAK\
+			WEIGHT_LBS X REPS    Time-Length    \BREAK\
+			WEIGHT_LBS X REPS    Time-Length (repeat until setcount reached)]
+	[ListColumnView Format:
+		Routine Name    \BREAK\
+			WEIGHT_KGS X REPS    Time-Length    \BREAK\
+			WEIGHT_KGS X REPS    Time-Length (repeat until setcount reached)]
+	
+	
+	[LongView Format:
+		Routine Name    \BREAK\
+			WEIGHT_LBS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)
+			WEIGHT_LBS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)
+		Routine Name    \BREAK\
+			WEIGHT_LBS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)]
+	[LongView Format:
+		Routine Name    \BREAK\
+			WEIGHT_KGS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)
+			WEIGHT_KGS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)
+		Routine Name    \BREAK\
+			WEIGHT_KGS X REPS X REPS (repeat until setcount reached)    Time-Length    Time-Length    (repeat until the end)]

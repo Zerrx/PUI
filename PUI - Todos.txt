@@ -1,0 +1,11 @@
+bool backupWith7z: backups data using 7z
+	returns true if successful, false otherwise
+	runs on new directory creation:
+		> copies all folders in previous directory for week/year
+		> names new 7z folder as previous week's name
+			^ uses underscores in place of dashes
+			^ adds "_backup" in suffix
+		> does NOT delete previous week's folder
+		> stores (moves from temporaryDirectory) the new backup data in "Routine Information/Weekly Backups"
+
+// TODO: Create a Development Document to record information, notes, step-by-step guides for coding, namespace structures, step-by-step guides for protecting/securing documents and text, et cetera

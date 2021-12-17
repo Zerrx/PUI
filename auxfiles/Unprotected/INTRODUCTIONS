@@ -1,0 +1,51 @@
+[INTERFACE: MAIN]
+[PAR]Welcome to PUI! This is the interface for PUI's applications.
+[PAR_SEP]By inputting the letters & numbers corresponding to an application, you can select an app to start. By typing in "quit", "exit", "cancel", or "close" during any input-point, you can shut the application down.
+[PAR_SEP]You can type "help" for more information about the current application, or "help -N" (where N is the application command) to open the help menu on that application without starting it up.
+[PAR_SEP]You can also type "preferences" to open and modify preferences for the whole application and all sub-applications (such as "Bodybuilding"). This option is ONLY available on the home screen!
+[PAR_SEP]The following applications may be selected:
+[PAR_SEP]a: Bodybuilding    | f: Feline           | k: Help
+[PAR]b: Running         | g: Farming
+[PAR]c: Fishing         | h: Gardening
+[PAR]d: Canine          | i: Writing
+[PAR]e: Equine          | j: Construction
+[END:INTERFACE;]
+[INTERFACE: NEWWEEKLYROUTINEDIRECTORY]
+[PAR]Welcome to the New Weekly Workout Routine Directory wizard!
+[PAR_SEP]This wizard is designed to help automate the repetitive tasks involved in creating weekly directories to record and monitor workout routines and other, related information.
+[END:INTERFACE;]
+[INTERFACE: SHORTHANDROUTINE]
+[PAR]Welcome to the Create Shorthand Routine application!
+[PAR_SEP]This app is designed to allow a user to create a file with a given day's routine in shorthand. This file and its routines will be converted to a CSV so the routines can be easily imported into XLSX data. Further, a TXT file is created with LBS and KGS as separate sections in "Simple View", "List View", and "List Column View" formats for various reading requirements. The TXT and CSV file has the name as the date (not time) of the routine in DD MMMM YYYY format.
+[PAR_SEP]You may quit at any time by typing in "quit", "close", "cancel", or exit". (WARNING: Typing in the quit commands will not create a file!)
+[PAR_SEP]Once the day's routines have been written in shorthand, you MUST type either "[end;]" or "end" and press enter in order to save the routines and create the file! The routine(s) information you have entered will not be processed if you do not type the end command and press enter!
+[PAR_SEP]When inputting routines, you must enter the option number for the routine! To get the option number, type "help" and press enter. A new window will appear with the options numbered; simply select the routine (option) you want by pressing enter in the new window and keying that number in the program.
+[PAR_SEP]Here is what to expect:
+[PAR]1. Routine date           |  4. Shorthand Info (Weight x Reps x Sets)
+[PAR]2. Start time             |  5. Single set completion time (HH:MM:SS)
+[PAR]3. Routine [Set count]    |  6. End time
+[END:INTERFACE;]
+[INTERFACE: BODYBUILDING]
+[PAR]Welcome to the Bodybuilding application!
+[PAR_SEP](NOTE: This app is currently in its development stages, so some functionality may not readily be available.)
+[PAR_SEP]You may quit at any time by typing "quit", "close", "cancel", or "exit".
+[PAR_SEP]The following apps are currently available:
+[PAR_SEP]a: Create a New Weekly
+[PAR]   Directory
+[PAR]b: Create Shorthand
+[PAR]   Routine
+[END:INTERFACE;]
+[INTERFACE: CONSTRUCTION]
+[PAR]Welcome to the Construction application!
+[PAR_SEP](NOTE: This app is currently in its development stages, so some functionality may not readily be available.)
+[PAR_SEP]You may quit at any time by typing "quit", "close", "cancel", or "exit".
+[PAR_SEP]The following apps are currently available:
+[PAR_SEP]a: Stair Stringer
+[PAR]   Calculator
+[END:INTERFACE;]
+[INTERFACE: STAIRSTRINGER]
+[PAR]Welcome to the Stair Stringer Calculator application!
+[PAR_SEP]You may quit at any time by typing "quit", "close", "cancel", or "exit". (WARNING: Typing in the quit commands will not create a file!)
+[PAR_SEP]To begin, just type 'r' and hit enter. And remember to hit enter after each field...the field you are writing in is underlined for your convenience.
+[PAR_SEP]Ready?
+[END:INTERFACE;]

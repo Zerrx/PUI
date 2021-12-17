@@ -1,0 +1,5 @@
+Remove file copying of Word documents
+	Instead of copying files which have been secured, secure file internal data and paths
+	Modify data according to current dates, times, or other needs
+	Utilize 7-zip (if installed) or Windows' zip-archiver program to compress the data and store the resulting compressed file in a "TEMP" directory
+	Copy and rename the new compressed file to the designated name as a ".DOCX" file
