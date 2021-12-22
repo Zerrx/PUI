@@ -5,6 +5,8 @@
 #include <string>
 #include "DateTime.h"
 
+void makeDirectory(std::string path, int index);
+
 int CreateNewWeeklyDirectory();
 
 void createDirectoryInfoFile(std::string newWeeklyDirectory,

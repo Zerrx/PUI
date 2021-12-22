@@ -12,7 +12,12 @@
 #include <vector>
 // File I/O and Directory Manipulation libraries
 #include <fstream>
+#include <filesystem>
 #include <direct.h>
+#include <conio.h>
+#include <io.h>
+#include <process.h>
+#include <stdio.h>
 // Application includes
 #include "..\..\..\include\conf.h"
 #include "..\..\..\include\CreateNewWeeklyDirectory.h"
@@ -24,23 +29,40 @@
 #include "..\..\..\include\WindowsConsole.h"
 
 using namespace std;
-
 using namespace PUI;
+
+void makeDirectory(std::string path, int index) {
+	/*
+		The final character must be either a forward or backslash
+	*/
+	for (auto it = path.begin(); it < path.end(); ++it) {
+		if ((!index) || (index <= 3)) {
+			index++;
+			continue;
+		} else if ((*it == '/') || (*it == '\\')) {
+			mkdir(path.substr(0, index).c_str());
+		}
+		index++;
+	}
+};
 
 // Main function
 int CreateNewWeeklyDirectory() {
 	// Clear the screen
 	ClearScreen();
 	
-	// Get the user's bodybuilding directory for storing weekly data
-	std::string bodybuildingDirectory =
-			(config.getValue("Module.Sports.Bodybuilding.Directory") +
-			"Weekly/");
+	// Set the Primary Journal Path:
+		// D:/Journal/Annuals/
+	std::string JournalPath = config.getValue("Application.PrimaryDirectory");
 	
 	// Get Date/Time
 	struct tm currentDateTime = GetCurrentDateTM();
 	struct DayAndWeekInfo currentDayWeek;
 	currentDayWeek = getDayAndWeekInfo(currentDateTime);
+	
+	// Continue building the current week's directory information
+		// D:/Journal/Annuals/${YEAR}/
+	JournalPath += (currentDayWeek.dayDTI.pui_gdt_str_year + "/");
 	
 	// Create the new directory's name
 	std::string dirName = ("Week " +
@@ -48,20 +70,24 @@ int CreateNewWeeklyDirectory() {
 			currentDayWeek.dayDTI.pui_gdt_str_week);
 	std::string dirInfoFileName = (dirName + ".info");
 	
+	// Get the user's bodybuilding directory for storing weekly data
+		// D:/Journal/Annuals/${YEAR}/${WEEKLY}/Bodybuilding/
+	std::string bodybuildingDirectory = JournalPath + dirName + "/" +
+			config.getValue("Module.Sports.Bodybuilding.Directory");
+	
 	// Check if the directory by current year exists:
 	//	- If it does not, then create it
 	//	- Update the bodybuildingDirectory to reflect the change
-	std::string currentWeeklyYearDirectory = (bodybuildingDirectory +
-			currentDayWeek.dayDTI.pui_gdt_str_year + "/");
-	if (!directoryExists(currentWeeklyYearDirectory.c_str())) {
-		CreateDirectory(currentWeeklyYearDirectory.c_str(), NULL);
-	}
+	if (!directoryExists(bodybuildingDirectory.c_str()))
+		makeDirectory(bodybuildingDirectory, 0);
+
 	
 	// 1. Get the file/folder path
 	// 2. Ensure the correct Windows path separator is used: "\\" for Windows
-	std::string newWeeklyDirectory = (currentWeeklyYearDirectory +
-			dirName + "/");
-		size_t start_pos = 0;
+	std::string newWeeklyDirectory = bodybuildingDirectory;
+	size_t start_pos = 0;
+	
+	// FOR WINDOWS
 	std::string searchTerm = "/";
 	std::string replaceTerm = "\\";
 	while((start_pos = newWeeklyDirectory.find(searchTerm, start_pos)) != std::string::npos) {
@@ -88,11 +114,11 @@ int CreateNewWeeklyDirectory() {
 
 	// Create the new directory
 	std::cout << "\nCreating the selected week's directory...";
-	CreateDirectory(newWeeklyDirectory.c_str(), NULL);
+	makeDirectory(newWeeklyDirectory, 0);
 	
 	// Create the new directory's Shorthand directory for the Create a New Shorthand Routine Application
 	std::cout << "\nCreating the \"Shorthand\" directory...\n";
-	CreateDirectory((newWeeklyDirectory + "Shorthand").c_str(), NULL);
+	makeDirectory((newWeeklyDirectory + "Shorthand/"), 0);
 	
 	// Output new information for user's sake
 	std::cout << "New directory name: " << dirName << std::endl;
@@ -124,8 +150,9 @@ int CreateNewWeeklyDirectory() {
 	// Now that we have a handle on the user's temporary directory,
 	// create the temporary PUI processing folder and assign that
 	// new folder as our working temporaryFolder.
-	CreateDirectory((temporaryFolder + "PUI").c_str(), NULL);
+	
 	temporaryFolder += "PUI/";
+	makeDirectory(temporaryFolder, 0);
 	// -----------------------------------------------------------------------------
 	// SECOND: Begin decoding weekly files and gather the list of files
 	// -----------------------------------------------------------------------------
@@ -142,9 +169,7 @@ int CreateNewWeeklyDirectory() {
 	while (directoryCreationIterator < sizeOfFilesToCopy) {
 		std::string::size_type n = filesToCopy[directoryCreationIterator].find("/");
 		while (n != std::string::npos) {
-			CreateDirectory((temporaryFolder +
-					filesToCopy[directoryCreationIterator].
-								substr(0, n)).c_str(), NULL);
+			makeDirectory((temporaryFolder + filesToCopy[directoryCreationIterator].substr(0, n)), 0);
 			n = filesToCopy[directoryCreationIterator].find("/", n+1);
 		}
 		directoryCreationIterator++;

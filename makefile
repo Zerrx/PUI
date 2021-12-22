@@ -31,7 +31,6 @@ SRCS = categories\construction\Construction.cpp categories\construction\StairStr
 #         For each word in 'name' replace 'string1' with 'string2'
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
-#
 OBJS = $(SRCS:.cpp=.o)
 
 # define the executable file 
@@ -52,7 +51,7 @@ all: $(MAIN)
 #		windres resource.rc resource.o
 
 $(MAIN): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) Resources\resource.o $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS)
 
 
 # this is a suffix replacement rule for building .o's from .cpp's

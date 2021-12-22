@@ -52,7 +52,7 @@ bool fileExists(const char *fileName) {
 	// bool to true or false
 	
 	// Return the value
-	return ifile;
+	return ifile.good();
 }
 
 bool overwriteFile(const char *fileName) {
